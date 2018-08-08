@@ -1,0 +1,81 @@
+Laravelメモ
+
+project作成時CUI上で下記のコマンドを実行
+composer create-project laravel/laravel --prefer-dist ディレクトリ名 5.1
+
+環境設定
+.env
+プロジェクトに関わる情報が記載されている
+例: メールの送信設定、DB名など
+
+config/app.php
+言語設定や時間設定などプロジェクトの設定が記述されている
+
+config/database.php
+名前の通り、databaseについて記述されている
+
+view関数
+resources/views直下にあるviewを指定する
+view('view名); view名には「view名.blade.php」のview名が入る
+
+クロージャーを使用した場合
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Routingの記述方法
+Route::get('URLがこの時', '使用するコントローラー名@使用するメソッド名');
+Route::get('/', 'WelcomeController@index');
+
+
+view関数でディレクトリに入っているviewを使いたい場合は、'ディレクトリ名.view名'と記述する
+
+値をviewに渡したい時はview関数の第２引数にcompact関数を使う
+
+{{ 出力したい値 }}
+「{{  }}」はPHPでいう<?php echo ?>の代わり(Laravel用)
+
+@yield
+
+@section
+
+@extends
+
+migrationファイルを作成するコマンド
+php artisan make:migration ファイル名
+
+カラム追加用のマイグレーションファイルを作成して、マイグレーションを実行する方法
+php artisan make:migration add_published_at_to_tweets_table --table=tweets
+
+カラムだけを削除したい場合
+$table->dropColumn('published_at');
+
+$tweets = Tweet::all(); // 追加 "モデル名::Eloquent" の形
+↑SQL文で書くとSELECT * FROM `tweets`;
+
+$tweet = Tweet::find(1);
+$tweet = Tweet::findOrFail(1);
+↑SQL文で書くとSELECT * FROM `tweets` WHERE `id`=()内の数字;
+
+find()とfindOrFail()の違い
+find() == 値がないときにnullを返す
+findOrFail() == 値がないときにエラーを返す
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
